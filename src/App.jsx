@@ -1,22 +1,22 @@
 import ClickCounter from "./components/ClickCounter";
 import Person from "./components/Person";
 import "./App.css";
-import ErrorBoundary from "./components/ErrorBoundary";
+import { ErrorBoundary } from "react-error-boundary";
+import Fallback from './components/Fallback';
 function App() {
   const person = {
     firstName: "Pouria",
     lastName: "Khadivar",
   };
+  const errorHandler = (error, errorInfo) => {
+    console.log("Loging", error, errorInfo);
+  }
 
   return (
     <div className="App">
-      <ErrorBoundary>
+      <ErrorBoundary FallbackComponent={Fallback} onError={errorHandler}>
         <Person person={person} />
-      </ErrorBoundary>
-      <ErrorBoundary>
-        <Person person={{}} />
-      </ErrorBoundary>
-      <ErrorBoundary>
+        {/* <Person person={{}} /> */}
         <ClickCounter />
       </ErrorBoundary>
     </div>
